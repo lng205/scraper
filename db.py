@@ -93,6 +93,12 @@ def remove_question(question_id: int):
         session.commit()
 
 
+def get_ids() -> list:
+    with Session(engine) as session:
+        questions = session.scalars(select(Question))
+        return [question.data_id for question in questions]
+
+
 def get_data(id: int = 1) -> list:
     with Session(engine) as session:
         question = session.get(Question, id)
